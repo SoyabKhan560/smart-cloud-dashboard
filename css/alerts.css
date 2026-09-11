@@ -1,0 +1,195 @@
+/* ==========================================================================
+   Alerts & Notifications View Styles - Severity Badges, Filters, List, Actions
+   ========================================================================== */
+
+/* Alerts Filter Bar */
+.alerts-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filter-pills-group {
+  display: flex;
+  align-items: center;
+  background: var(--bg-tertiary);
+  padding: 0.3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  gap: 0.25rem;
+}
+
+.filter-pill {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.filter-pill:hover {
+  color: var(--text-primary);
+}
+
+.filter-pill.active {
+  background: var(--grad-accent);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.4);
+}
+
+.filter-count {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Alerts List Container */
+.alerts-list-card {
+  padding: 0.5rem;
+}
+
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.alert-item-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 1.35rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition-fast);
+  position: relative;
+  gap: 1.25rem;
+}
+
+.alert-item-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-light);
+}
+
+.alert-item-card.critical {
+  border-left: 4px solid var(--color-critical);
+}
+.alert-item-card.warning {
+  border-left: 4px solid var(--color-warning);
+}
+.alert-item-card.info {
+  border-left: 4px solid var(--accent-cyan);
+}
+.alert-item-card.success {
+  border-left: 4px solid var(--color-success);
+}
+.alert-item-card.resolved {
+  opacity: 0.6;
+  border-left: 4px solid var(--text-muted);
+}
+
+.alert-left-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.alert-severity-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.alert-item-card.critical .alert-severity-icon {
+  background: var(--color-critical-bg);
+  color: var(--color-critical);
+}
+.alert-item-card.warning .alert-severity-icon {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+.alert-item-card.info .alert-severity-icon {
+  background: var(--color-info-bg);
+  color: var(--accent-cyan);
+}
+.alert-item-card.success .alert-severity-icon {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.alert-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.alert-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.alert-headline {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.alert-description {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.alert-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.alert-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+}
+
+.alert-actions-block {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .alert-item-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .alert-actions-block {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+}

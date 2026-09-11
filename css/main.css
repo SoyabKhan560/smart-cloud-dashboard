@@ -1,0 +1,148 @@
+/* ==========================================================================
+   Smart Cloud Autoscaling & Cost Optimizer - Design System & Tokens
+   ========================================================================== */
+
+:root {
+  /* Color Palette - Dark SaaS / Cloud DevOps Theme */
+  --bg-primary: #0a0d14;
+  --bg-secondary: #0f1422;
+  --bg-tertiary: #161c2e;
+  --bg-card: rgba(22, 28, 46, 0.75);
+  --bg-card-hover: rgba(30, 39, 64, 0.85);
+  --bg-glass: rgba(15, 20, 34, 0.65);
+  --bg-input: #121829;
+  
+  /* Borders & Dividers */
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-light: rgba(255, 255, 255, 0.12);
+  --border-focus: #38bdf8;
+  --border-glow: rgba(56, 189, 248, 0.35);
+
+  /* Primary & Accent Colors */
+  --accent-blue: #3b82f6;
+  --accent-cyan: #06b6d4;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #ec4899;
+  --accent-indigo: #6366f1;
+  --accent-sky: #38bdf8;
+
+  /* Gradients */
+  --grad-primary: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+  --grad-accent: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+  --grad-purple: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  --grad-card: linear-gradient(180deg, rgba(25, 33, 56, 0.6) 0%, rgba(15, 20, 34, 0.6) 100%);
+  --grad-glow: radial-gradient(circle at 50% -20%, rgba(56, 189, 248, 0.15), transparent 70%);
+
+  /* Status Colors */
+  --color-success: #10b981;
+  --color-success-bg: rgba(16, 185, 129, 0.12);
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.12);
+  --color-critical: #ef4444;
+  --color-critical-bg: rgba(239, 68, 68, 0.12);
+  --color-info: #06b6d4;
+  --color-info-bg: rgba(6, 182, 212, 0.12);
+
+  /* Typography */
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #0f172a;
+
+  /* Elevations & Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
+  --shadow-glow-cyan: 0 0 25px rgba(6, 182, 212, 0.3);
+  --shadow-glow-purple: 0 0 25px rgba(139, 92, 246, 0.3);
+  --shadow-glow-blue: 0 0 25px rgba(59, 130, 246, 0.3);
+
+  /* Layout Constants */
+  --sidebar-width: 270px;
+  --sidebar-collapsed-width: 76px;
+  --topbar-height: 70px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Mode Overrides (if activated in settings) */
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-tertiary: #e2e8f0;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card-hover: rgba(255, 255, 255, 1);
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --bg-input: #f8fafc;
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-light: rgba(0, 0, 0, 0.15);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Base Utility Classes */
+.hidden { display: none !important; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.text-cyan { color: var(--accent-cyan); }
+.text-purple { color: var(--accent-purple); }
+.text-blue { color: var(--accent-blue); }
+.text-muted { color: var(--text-muted); }
+.text-success { color: var(--color-success); }
+.text-warning { color: var(--color-warning); }
+.text-critical { color: var(--color-critical); }
+
+/* Glowing accents */
+.glow-cyan { text-shadow: 0 0 12px rgba(6, 182, 212, 0.5); }
+.glow-purple { text-shadow: 0 0 12px rgba(139, 92, 246, 0.5); }

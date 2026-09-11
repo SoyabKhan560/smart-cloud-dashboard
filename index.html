@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Cloud Autoscaling & Cost Optimizer</title>
+  <meta name="description" content="Intelligent cloud resource management, automated scaling, and continuous cost optimization for high-availability cloud infrastructure.">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/autoscaling.css">
+  <link rel="stylesheet" href="css/cost.css">
+  <link rel="stylesheet" href="css/alerts.css">
+  <link rel="stylesheet" href="css/assistant.css">
+  <link rel="stylesheet" href="css/settings.css">
+
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- ========================================================================
+       1. LOGIN / AUTH VIEW
+       ======================================================================== -->
+  <div id="view-login" class="hidden">
+    <div class="auth-bg-grid"></div>
+    <div class="auth-orb-1"></div>
+    <div class="auth-orb-2"></div>
+
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-brand-icon">
+          <i class="fas fa-cloud"></i>
+        </div>
+        <h1 class="auth-title">Smart Cloud Autoscaling<br>&amp; Cost Optimizer</h1>
+        <p class="auth-subtitle">Intelligent cloud resource management and cost optimization</p>
+        <span class="auth-tagline">“Intelligent scaling. Lower costs. Smarter cloud.”</span>
+      </div>
+
+      <button type="button" class="btn-social-google" id="btn-google-login">
+        <svg width="18" height="18" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+          <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+          <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+          <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-divider">or sign in with email</div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Work Email</label>
+          <input type="email" id="login-email" class="form-control" placeholder="name@company.com" required value="admin@cloudscale.io">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-control" placeholder="••••••••••••" required value="CloudOptimizer#2026">
+        </div>
+
+        <div class="auth-options">
+          <label class="auth-checkbox">
+            <input type="checkbox" checked>
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="auth-forgot-link" onclick="alert('Password reset instructions sent to registered administrator.'); return false;">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-login-submit" id="btn-login">
+          <span>Sign In to Dashboard</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <div class="auth-demo-badge" id="btn-demo-credentials" title="Fill with demo credentials">
+        <i class="fas fa-magic"></i> Auto-fill Demo DevOps Credentials
+      </div>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="#" onclick="alert('Enterprise registration is managed by AWS IAM SSO.'); return false;">Create Account</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MAIN APP SHELL (Sidebar + Topbar + Dynamic Views Container)
+       ======================================================================== -->
+  <div id="app-shell" class="hidden">
+    <div class="ambient-glow"></div>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo-icon">
+          <i class="fas fa-cloud"></i>
+        </div>
+        <div class="brand-info">
+          <span class="brand-name">Smart Cloud Optimizer</span>
+          <span class="brand-badge">AWS Production</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <span class="nav-section-title">Core Management</span>
+        <a class="nav-item active" data-route="dashboard" id="nav-dashboard">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+        <a class="nav-item" data-route="autoscaling" id="nav-autoscaling">
+          <i class="fas fa-layer-group"></i>
+          <span>Autoscaling</span>
+        </a>
+        <a class="nav-item" data-route="cost" id="nav-cost">
+          <i class="fas fa-chart-pie"></i>
+          <span>Cost Optimization</span>
+        </a>
+        <a class="nav-item" data-route="alerts" id="nav-alerts">
+          <i class="fas fa-bell"></i>
+          <span>Alerts</span>
+          <span class="nav-badge" id="sidebar-alert-count">3</span>
+        </a>
+
+        <span class="nav-section-title" style="margin-top: 0.5rem;">Intelligent AI &amp; Admin</span>
+        <a class="nav-item" data-route="assistant" id="nav-assistant">
+          <i class="fas fa-robot"></i>
+          <span>Smart Assistant</span>
+        </a>
+        <a class="nav-item" data-route="settings" id="nav-settings">
+          <i class="fas fa-sliders-h"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-snippet">
+          <div class="user-avatar user-avatar-initials">AV</div>
+          <div class="user-meta">
+            <span class="user-name user-display-name">Alex Vance</span>
+            <span class="user-role user-display-role">DevOps Lead</span>
+          </div>
+        </div>
+        <button class="btn-logout" id="btn-sidebar-logout" title="Sign Out">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+      
+      <!-- TOP NAVBAR -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="mobile-menu-toggle" id="btn-mobile-menu" aria-label="Toggle navigation drawer">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="page-title-box">
+            <h1 class="page-title" id="topbar-page-title">
+              <i class="fas fa-tachometer-alt text-cyan"></i> Dashboard
+            </h1>
+            <span class="page-subtitle" id="topbar-page-subtitle">Real-time telemetry and infrastructure health</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Live AWS Connection Status -->
+          <div class="cloud-status-pill" title="Amazon Web Services - us-east-1 Cluster Active">
+            <div class="status-dot"></div>
+            <span class="pill-text"><i class="fab fa-aws"></i> AWS Connected</span>
+          </div>
+
+          <!-- Simulate Workload Surge Button -->
+          <button class="btn-sim-surge" id="btn-trigger-surge" title="Simulate a sudden traffic surge to test autoscaling!">
+            <i class="fas fa-bolt"></i>
+            <span>Simulate Workload Surge</span>
+          </button>
+
+          <!-- Notification Bell -->
+          <button class="topbar-icon-btn" onclick="window.location.hash='#alerts'" title="View active alerts">
+            <i class="far fa-bell"></i>
+            <span class="notification-badge"></span>
+          </button>
+
+          <!-- User Profile Icon Avatar -->
+          <div class="user-avatar user-avatar-initials" style="width: 36px; height: 36px; cursor: pointer;" onclick="window.location.hash='#settings'">AV</div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY -->
+      <main class="content-body">
+
+        <!-- ==================================================================
+             2. DASHBOARD VIEW
+             ================================================================== -->
+        <section id="view-dashboard" class="view-section active-view">
+          
+          <!-- Key Metrics KPI Grid -->
+          <div class="dashboard-metrics-grid">
+            
+            <!-- Total & Active Servers -->
+            <div class="card stat-card accent-blue">
+              <div class="stat-top">
+                <span class="stat-label">Active / Total Servers</span>
+                <div class="stat-icon blue"><i class="fas fa-server"></i></div>
+              </div>
+              <div class="stat-value" id="dash-servers-val">3 <span class="stat-unit">/ 5</span></div>
+              <div class="stat-trend neutral">
+                <span class="badge badge-info" style="font-size: 0.7rem;">Capacity: 60%</span>
+                <span>Max: 5 nodes</span>
+              </div>
+            </div>
+
+            <!-- Current CPU Usage -->
+            <div class="card stat-card accent-cyan">
+              <div class="stat-top">
+                <span class="stat-label">Current CPU Usage</span>
+                <div class="stat-icon cyan"><i class="fas fa-microchip"></i></div>
+              </div>
+              <div class="stat-value" id="dash-cpu-val">68<span class="stat-unit">%</span></div>
+              <div class="stat-trend up">
+                <i class="fas fa-arrow-up"></i>
+                <span>+4% vs last hr (Threshold: 80%)</span>
+              </div>
+            </div>
+
+            <!-- Memory Usage -->
+            <div class="card stat-card accent-purple">
+              <div class="stat-top">
+                <span class="stat-label">Memory Usage</span>
+                <div class="stat-icon purple"><i class="fas fa-memory"></i></div>
+              </div>
+              <div class="stat-value" id="dash-mem-val">54<span class="stat-unit">%</span></div>
+              <div class="stat-trend neutral">
+                <span>17.2 GB allocated of 32 GB</span>
+              </div>
+            </div>
+
+            <!-- Current Cloud Cost -->
+            <div class="card stat-card accent-amber">
+              <div class="stat-top">
+                <span class="stat-label">Current Cloud Cost</span>
+                <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);"><i class="fas fa-dollar-sign"></i></div>
+              </div>
+              <div class="stat-value" id="dash-cost-val">$128.40</div>
+              <div class="stat-trend neutral">
+                <span>Est. Month End: <b>$142.00</b></span>
+              </div>
+            </div>
+
+            <!-- Cost Savings & Autoscaling Status -->
+            <div class="card stat-card accent-green">
+              <div class="stat-top">
+                <span class="stat-label">Estimated Savings</span>
+                <div class="stat-icon green"><i class="fas fa-piggy-bank"></i></div>
+              </div>
+              <div class="stat-value text-success" id="dash-savings-val">$34.70</div>
+              <div class="flex-between" style="margin-top: 0.2rem;">
+                <span class="stat-trend up" style="color: #34d399;"><i class="fas fa-shield-alt"></i> Autoscaling:</span>
+                <span id="dash-as-status-badge" class="badge badge-success"><i class="fas fa-check-circle"></i> Active</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Real-time Charts Grid (2x2) -->
+          <div class="charts-grid-2x2">
+            
+            <!-- CPU Over Time Chart -->
+            <div class="card chart-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-microchip text-cyan"></i> CPU Usage Over Time</h2>
+                  <p class="card-subtitle">Aggregated cluster load percentage</p>
+                </div>
+                <div class="chart-badge-live">
+                  <span class="pulse-dot"></span> LIVE
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="chart-cpu"></canvas>
+              </div>
+            </div>
+
+            <!-- Memory Over Time Chart -->
+            <div class="card chart-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-memory text-purple"></i> Memory Usage Over Time</h2>
+                  <p class="card-subtitle">Cluster RAM allocation percentage</p>
+                </div>
+                <div class="chart-badge-live">
+                  <span class="pulse-dot" style="background: #8b5cf6;"></span> LIVE
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="chart-memory"></canvas>
+              </div>
+            </div>
+
+            <!-- Server Count Over Time Chart -->
+            <div class="card chart-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-server text-blue"></i> Server Count Over Time</h2>
+                  <p class="card-subtitle">Horizontal scaling instance history</p>
+                </div>
+                <span class="badge badge-purple">Min: 1 | Max: 5</span>
+              </div>
+              <div class="chart-container">
+                <canvas id="chart-servers"></canvas>
+              </div>
+            </div>
+
+            <!-- Cloud Cost Over Time Chart -->
+            <div class="card chart-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-chart-line text-success"></i> Cloud Cost Over Time</h2>
+                  <p class="card-subtitle">Accumulated monthly spend vs projections</p>
+                </div>
+                <span class="badge badge-success">Target: &lt; $150</span>
+              </div>
+              <div class="chart-container">
+                <canvas id="chart-cost"></canvas>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Dashboard Bottom Section: System Health & Activity Feed -->
+          <div class="dashboard-bottom-grid">
+            
+            <!-- System Health Section -->
+            <div class="card health-matrix-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-heartbeat text-cyan"></i> System Health Matrix</h2>
+                  <p class="card-subtitle">Real-time infrastructure readiness</p>
+                </div>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Operational</span>
+              </div>
+
+              <div class="health-status-list">
+                <div class="health-item">
+                  <div class="health-info">
+                    <div class="health-icon-box" style="background: rgba(6, 182, 212, 0.12); color: var(--accent-cyan);"><i class="fas fa-microchip"></i></div>
+                    <div>
+                      <div class="health-name">CPU Status</div>
+                      <div class="health-subtext">Avg utilization 68%</div>
+                    </div>
+                  </div>
+                  <span id="health-cpu-status" class="badge badge-warning">Elevated</span>
+                </div>
+
+                <div class="health-item">
+                  <div class="health-info">
+                    <div class="health-icon-box" style="background: rgba(139, 92, 246, 0.12); color: var(--accent-purple);"><i class="fas fa-memory"></i></div>
+                    <div>
+                      <div class="health-name">Memory Status</div>
+                      <div class="health-subtext">Avg allocation 54%</div>
+                    </div>
+                  </div>
+                  <span id="health-mem-status" class="badge badge-success">Optimal</span>
+                </div>
+
+                <div class="health-item">
+                  <div class="health-info">
+                    <div class="health-icon-box" style="background: rgba(59, 130, 246, 0.12); color: var(--accent-blue);"><i class="fas fa-server"></i></div>
+                    <div>
+                      <div class="health-name">Servers Cluster</div>
+                      <div class="health-subtext">3 nodes running, 2 standby</div>
+                    </div>
+                  </div>
+                  <span class="badge badge-success">Healthy</span>
+                </div>
+
+                <div class="health-item">
+                  <div class="health-info">
+                    <div class="health-icon-box" style="background: rgba(16, 185, 129, 0.12); color: var(--color-success);"><i class="fas fa-cogs"></i></div>
+                    <div>
+                      <div class="health-name">Autoscaling Engine</div>
+                      <div class="health-subtext">Dynamic policy active</div>
+                    </div>
+                  </div>
+                  <span class="badge badge-success">Active</span>
+                </div>
+
+                <div class="health-item">
+                  <div class="health-info">
+                    <div class="health-icon-box" style="background: rgba(56, 189, 248, 0.12); color: var(--accent-sky);"><i class="fab fa-aws"></i></div>
+                    <div>
+                      <div class="health-name">Cloud Connection</div>
+                      <div class="health-subtext">AWS us-east-1 ping 18ms</div>
+                    </div>
+                  </div>
+                  <span class="badge badge-success"><i class="fas fa-link"></i> Connected</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Activity Section -->
+            <div class="card activity-feed-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-history text-purple"></i> Recent Activity Feed</h2>
+                  <p class="card-subtitle">Automated scaling, cost adjustments, and alerts</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" onclick="window.location.hash='#autoscaling'">View All</button>
+              </div>
+
+              <div class="activity-feed-list" id="dashboard-activity-list">
+                <!-- Populated dynamically by DashboardView -->
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             3. AUTOSCALING PAGE
+             ================================================================== -->
+        <section id="view-autoscaling" class="view-section">
+          
+          <!-- Top Controls & Policy Setup -->
+          <div class="autoscaling-controls-grid">
+            
+            <!-- Master Status & Quick Stats -->
+            <div class="card autoscaling-status-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-sliders-h text-cyan"></i> Autoscaling Status</h2>
+                  <p class="card-subtitle">Automated horizontal elasticity engine</p>
+                </div>
+              </div>
+
+              <div class="master-toggle-box">
+                <div>
+                  <div style="font-weight: 600; color: var(--text-primary);">Autoscaling Engine</div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted);">Dynamically scale instances based on live metrics</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="as-master-toggle" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="dashboard-metrics-grid" style="margin-bottom: 0; grid-template-columns: 1fr 1fr;">
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+                  <div class="stat-label">Active Nodes</div>
+                  <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-cyan);" id="as-stat-current-servers">3</div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted);">Current cluster size</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+                  <div class="stat-label">Current CPU</div>
+                  <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-purple);" id="as-stat-current-cpu">68%</div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted);">Cluster average</div>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem; margin-top: 1.25rem;">
+                <button class="btn btn-primary" id="btn-manual-scale-up" style="flex: 1;">
+                  <i class="fas fa-plus"></i> Manual Scale Up
+                </button>
+                <button class="btn btn-danger" id="btn-manual-scale-down" style="flex: 1;">
+                  <i class="fas fa-minus"></i> Manual Scale Down
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Thresholds & Boundaries -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-tachometer-alt text-purple"></i> Threshold Policies &amp; Cluster Limits</h2>
+                  <p class="card-subtitle">Define automatic trigger points for scale-out and scale-in</p>
+                </div>
+              </div>
+
+              <div class="threshold-slider-group">
+                
+                <!-- Scale Up Slider -->
+                <div class="threshold-control-item">
+                  <div class="threshold-header">
+                    <span class="threshold-title"><i class="fas fa-arrow-circle-up text-purple"></i> Scale-Up CPU Threshold</span>
+                    <span class="threshold-badge" id="as-scale-up-val">80%</span>
+                  </div>
+                  <div class="range-slider-wrap">
+                    <input type="range" class="range-slider" id="as-scale-up-slider" min="50" max="95" value="80">
+                  </div>
+                  <span style="font-size: 0.72rem; color: var(--text-muted);">Triggers provisioning of +1 node when CPU exceeds this level for 2 mins.</span>
+                </div>
+
+                <!-- Scale Down Slider -->
+                <div class="threshold-control-item">
+                  <div class="threshold-header">
+                    <span class="threshold-title"><i class="fas fa-arrow-circle-down text-cyan"></i> Scale-Down CPU Threshold</span>
+                    <span class="threshold-badge" id="as-scale-down-val">30%</span>
+                  </div>
+                  <div class="range-slider-wrap">
+                    <input type="range" class="range-slider" id="as-scale-down-slider" min="15" max="50" value="30">
+                  </div>
+                  <span style="font-size: 0.72rem; color: var(--text-muted);">Triggers graceful decommissioning of -1 node when CPU drops below this limit.</span>
+                </div>
+
+                <!-- Min & Max Servers Input -->
+                <div class="min-max-inputs">
+                  <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">Minimum Servers</label>
+                    <input type="number" class="form-control" id="as-min-servers" min="1" max="5" value="1">
+                  </div>
+                  <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">Maximum Servers</label>
+                    <input type="number" class="form-control" id="as-max-servers" min="1" max="10" value="5">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Live Server Visualization Grid (Cluster Rack) -->
+          <div class="server-cluster-section">
+            <div class="flex-between">
+              <div>
+                <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">
+                  <i class="fas fa-network-wired text-cyan"></i> Live Server Cluster Visualization
+                </h2>
+                <p style="font-size: 0.78rem; color: var(--text-muted);">Real-time topology, individual CPU/RAM metrics, and node states</p>
+              </div>
+              <div class="flex-center gap-2">
+                <span class="badge badge-success"><i class="fas fa-circle" style="font-size: 6px;"></i> Running</span>
+                <span class="badge badge-info"><i class="fas fa-circle" style="font-size: 6px;"></i> Starting</span>
+                <span class="badge badge-warning"><i class="fas fa-circle" style="font-size: 6px;"></i> Stopping</span>
+                <span class="badge"><i class="fas fa-circle" style="font-size: 6px;"></i> Standby</span>
+              </div>
+            </div>
+
+            <div class="server-cluster-grid" id="server-nodes-grid">
+              <!-- Rendered dynamically by AutoscalingView -->
+            </div>
+          </div>
+
+          <!-- Autoscaling History Table -->
+          <div class="card autoscaling-history-card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title"><i class="fas fa-list-alt text-purple"></i> Autoscaling Activity &amp; History</h2>
+                <p class="card-subtitle">Log of automated and manual scaling executions</p>
+              </div>
+              <span class="badge badge-purple">Audit Trail</span>
+            </div>
+
+            <div class="data-table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Action</th>
+                    <th>CPU Usage</th>
+                    <th>Server Count</th>
+                    <th>Trigger Reason</th>
+                  </tr>
+                </thead>
+                <tbody id="autoscaling-history-tbody">
+                  <!-- Rendered dynamically by AutoscalingView -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             4. COST OPTIMIZATION PAGE
+             ================================================================== -->
+        <section id="view-cost" class="view-section">
+          
+          <!-- High-Level Spend KPIs -->
+          <div class="cost-metrics-grid">
+            <div class="card stat-card accent-blue">
+              <div class="stat-top">
+                <span class="stat-label">Current Monthly Cost</span>
+                <div class="stat-icon blue"><i class="fas fa-receipt"></i></div>
+              </div>
+              <div class="stat-value" id="cost-stat-current">$128.40</div>
+              <div class="stat-trend neutral">Month to date spending</div>
+            </div>
+
+            <div class="card stat-card accent-purple">
+              <div class="stat-top">
+                <span class="stat-label">Previous Month Cost</span>
+                <div class="stat-icon purple"><i class="fas fa-calendar-alt"></i></div>
+              </div>
+              <div class="stat-value" id="cost-stat-prev">$163.10</div>
+              <div class="stat-trend up" style="color: #34d399;">
+                <i class="fas fa-arrow-down"></i> -21.2% spend decrease
+              </div>
+            </div>
+
+            <div class="card stat-card accent-amber">
+              <div class="stat-top">
+                <span class="stat-label">Estimated Month End</span>
+                <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);"><i class="fas fa-calculator"></i></div>
+              </div>
+              <div class="stat-value" id="cost-stat-est">$142.00</div>
+              <div class="stat-trend neutral">Projected based on run-rate</div>
+            </div>
+
+            <div class="card stat-card accent-green">
+              <div class="stat-top">
+                <span class="stat-label">Potential Monthly Savings</span>
+                <div class="stat-icon green"><i class="fas fa-piggy-bank"></i></div>
+              </div>
+              <div class="stat-value text-success" id="cost-stat-savings">$34.70</div>
+              <div class="stat-trend up" style="color: #34d399;">
+                <i class="fas fa-check-circle"></i> Available to reclaim
+              </div>
+            </div>
+
+            <div class="card stat-card accent-cyan">
+              <div class="stat-top">
+                <span class="stat-label">Cost Efficiency Score</span>
+                <div class="stat-icon cyan"><i class="fas fa-tachometer-alt"></i></div>
+              </div>
+              <div class="stat-value text-cyan" id="cost-stat-efficiency">84%</div>
+              <div class="stat-trend up" style="color: #34d399;">Tier A (Highly optimized)</div>
+            </div>
+          </div>
+
+          <!-- Cost Charts Grid (3 Charts) -->
+          <div class="cost-charts-grid">
+            <div class="card chart-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-calendar-day text-cyan"></i> Daily Cloud Spending</h2>
+                  <p class="card-subtitle">Last 7 days expense breakdown</p>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="chart-daily-spend"></canvas>
+              </div>
+            </div>
+
+            <div class="card chart-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-chart-bar text-blue"></i> Monthly Cost Comparison</h2>
+                  <p class="card-subtitle">Actual spend vs optimized targets</p>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="chart-monthly-compare"></canvas>
+              </div>
+            </div>
+
+            <div class="card chart-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-sliders-h text-purple"></i> Cost vs Server Count</h2>
+                  <p class="card-subtitle">Correlation with horizontal scale</p>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="chart-cost-servers"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recommendations & Cost Breakdown Grid -->
+          <div class="cost-details-grid">
+            
+            <!-- Recommendations List -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-magic text-cyan"></i> Optimization Recommendations</h2>
+                  <p class="card-subtitle">Actionable suggestions to reduce unnecessary cloud costs</p>
+                </div>
+                <span class="badge badge-success">5 Opportunities</span>
+              </div>
+
+              <div class="recommendations-list" id="cost-recommendations-list">
+                <!-- Rendered dynamically by CostView -->
+              </div>
+            </div>
+
+            <!-- Cost Breakdown Section -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title"><i class="fas fa-layer-group text-purple"></i> Cost Breakdown by Service</h2>
+                  <p class="card-subtitle">Resource allocation percentage</p>
+                </div>
+              </div>
+
+              <div class="cost-breakdown-list">
+                
+                <div class="breakdown-row">
+                  <div class="breakdown-row-header">
+                    <span class="breakdown-service-name"><i class="fas fa-microchip text-blue"></i> Compute (EC2 / Spot)</span>
+                    <span class="breakdown-cost-val">$78.60 (61.2%)</span>
+                  </div>
+                  <div class="breakdown-bar-track">
+                    <div class="breakdown-bar-fill" style="width: 61.2%; background: linear-gradient(90deg, #3b82f6, #60a5fa);"></div>
+                  </div>
+                </div>
+
+                <div class="breakdown-row">
+                  <div class="breakdown-row-header">
+                    <span class="breakdown-service-name"><i class="fas fa-database text-purple"></i> Storage (EBS / S3)</span>
+                    <span class="breakdown-cost-val">$24.30 (18.9%)</span>
+                  </div>
+                  <div class="breakdown-bar-track">
+                    <div class="breakdown-bar-fill" style="width: 18.9%; background: linear-gradient(90deg, #8b5cf6, #c084fc);"></div>
+                  </div>
+                </div>
+
+                <div class="breakdown-row">
+                  <div class="breakdown-row-header">
+                    <span class="breakdown-service-name"><i class="fas fa-network-wired text-cyan"></i> Network (NAT / Egress)</span>
+                    <span class="breakdown-cost-val">$15.50 (12.1%)</span>
+                  </div>
+                  <div class="breakdown-bar-track">
+                    <div class="breakdown-bar-fill" style="width: 12.1%; background: linear-gradient(90deg, #06b6d4, #38bdf8);"></div>
+                  </div>
+                </div>
+
+                <div class="breakdown-row">
+                  <div class="breakdown-row-header">
+                    <span class="breakdown-service-name"><i class="fas fa-cloud text-muted"></i> Other Services (CloudWatch)</span>
+                    <span class="breakdown-cost-val">$10.00 (7.8%)</span>
+                  </div>
+                  <div class="breakdown-bar-track">
+                    <div class="breakdown-bar-fill" style="width: 7.8%; background: #64748b;"></div>
+                  </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding: 1rem; border-radius: var(--radius-md); background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.15);">
+                  <div style="font-size: 0.85rem; font-weight: 600; color: var(--accent-cyan);"><i class="fas fa-info-circle"></i> AI Cost Insight</div>
+                  <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                    Compute represents 61% of total bill. Applying our recommended instance right-sizing will decrease compute overhead by 24% without sacrificing throughput.
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             5. ALERTS & NOTIFICATIONS PAGE
+             ================================================================== -->
+        <section id="view-alerts" class="view-section">
+          
+          <div class="alerts-filter-bar">
+            <div>
+              <h2 style="font-size: 1.2rem; font-weight: 700; color: var(--text-primary);">
+                System Alerts &amp; Incidents
+              </h2>
+              <p style="font-size: 0.78rem; color: var(--text-muted);">Monitor infrastructure alerts, threshold breaches, and anomaly detections</p>
+            </div>
+
+            <div class="filter-pills-group">
+              <button class="filter-pill active" data-filter="all">
+                All <span class="filter-count" id="filter-count-all">6</span>
+              </button>
+              <button class="filter-pill" data-filter="critical">
+                Critical <span class="filter-count" id="filter-count-critical">1</span>
+              </button>
+              <button class="filter-pill" data-filter="warning">
+                Warning <span class="filter-count" id="filter-count-warning">2</span>
+              </button>
+              <button class="filter-pill" data-filter="info">
+                Info <span class="filter-count" id="filter-count-info">1</span>
+              </button>
+              <button class="filter-pill" data-filter="resolved">
+                Resolved <span class="filter-count" id="filter-count-resolved">2</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="card alerts-list-card">
+            <div class="alerts-list" id="alerts-container-list">
+              <!-- Rendered dynamically by AlertsView -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             6. SMART ASSISTANT PAGE
+             ================================================================== -->
+        <section id="view-assistant" class="view-section">
+          
+          <div class="assistant-container">
+            <div class="assistant-header">
+              <div class="assistant-bot-profile">
+                <div class="bot-avatar">
+                  <i class="fas fa-brain"></i>
+                </div>
+                <div>
+                  <div class="bot-title">
+                    Smart Cloud Assistant
+                    <span class="bot-badge-model">CloudGPT v4</span>
+                  </div>
+                  <div class="bot-status-text"><i class="fas fa-circle text-success" style="font-size: 6px;"></i> Connected to AWS Infrastructure Context</div>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="document.getElementById('chat-messages-container').innerHTML = '';">
+                <i class="fas fa-eraser"></i> Clear Chat
+              </button>
+            </div>
+
+            <div class="chat-messages-area" id="chat-messages-container">
+              
+              <!-- Initial Welcome Message -->
+              <div class="chat-message-row assistant">
+                <div class="chat-msg-avatar"><i class="fas fa-robot"></i></div>
+                <div class="chat-bubble">
+                  <p>Hello Alex! I am your <strong>Smart Cloud Assistant</strong>. I am monitoring your cluster in <strong>AWS us-east-1</strong> in real-time.</p>
+                  <p>I can help diagnose CPU spikes, explain autoscaling executions, find cost-saving opportunities, and provide architectural advice.</p>
+                  <div class="chat-bubble-highlight">
+                    💡 Try asking: <em>"Why did my servers scale up?"</em> or <em>"How can I reduce my cloud cost?"</em>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Suggested Prompt Pills -->
+            <div class="suggested-prompts-bar">
+              <span class="prompt-pill" data-prompt="Analyze my current infrastructure">
+                <i class="fas fa-search"></i> Analyze my current infrastructure
+              </span>
+              <span class="prompt-pill" data-prompt="Find cost saving opportunities">
+                <i class="fas fa-piggy-bank"></i> Find cost saving opportunities
+              </span>
+              <span class="prompt-pill" data-prompt="Why did my servers scale up?">
+                <i class="fas fa-arrow-up"></i> Why did my servers scale up?
+              </span>
+              <span class="prompt-pill" data-prompt="Check system health">
+                <i class="fas fa-heartbeat"></i> Check system health
+              </span>
+              <span class="prompt-pill" data-prompt="Should I add another server?">
+                <i class="fas fa-server"></i> Should I add another server?
+              </span>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="chat-input-container">
+              <div class="chat-input-box">
+                <input type="text" id="chat-input-field" placeholder="Ask anything about your cloud cluster, scaling, or billing..." autocomplete="off">
+                <button class="chat-send-btn" id="chat-send-btn" aria-label="Send message">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             7. SETTINGS PAGE
+             ================================================================== -->
+        <section id="view-settings" class="view-section">
+          
+          <div class="settings-layout">
+            
+            <!-- Settings Tabs Sidebar -->
+            <div class="settings-tabs-sidebar">
+              <button class="settings-tab-btn active" data-tab="tab-profile">
+                <i class="fas fa-user-circle"></i> Profile Settings
+              </button>
+              <button class="settings-tab-btn" data-tab="tab-cloud">
+                <i class="fab fa-aws"></i> Cloud Configuration
+              </button>
+              <button class="settings-tab-btn" data-tab="tab-autoscaling">
+                <i class="fas fa-layer-group"></i> Autoscaling Defaults
+              </button>
+              <button class="settings-tab-btn" data-tab="tab-notifications">
+                <i class="fas fa-bell"></i> Notification Settings
+              </button>
+              <button class="settings-tab-btn" data-tab="tab-appearance">
+                <i class="fas fa-palette"></i> Appearance
+              </button>
+              <button class="settings-tab-btn" data-tab="tab-security">
+                <i class="fas fa-shield-alt"></i> Security &amp; Auth
+              </button>
+            </div>
+
+            <!-- Settings Content Panels -->
+            <div class="settings-content-panel">
+              
+              <!-- Tab 1: Profile -->
+              <div class="settings-tab-pane active" id="tab-profile">
+                <div class="settings-pane-header">
+                  <h2 class="settings-pane-title">Profile Settings</h2>
+                  <p class="settings-pane-desc">Manage your DevOps administrator details and team identity</p>
+                </div>
+
+                <form id="settings-profile-form">
+                  <div class="profile-avatar-row">
+                    <div class="profile-large-avatar" id="settings-avatar-circle">AV</div>
+                    <div>
+                      <button type="button" class="btn btn-secondary btn-sm" onclick="alert('Profile photo upload placeholder');"><i class="fas fa-camera"></i> Change Photo</button>
+                      <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.35rem;">JPG, GIF or PNG. Max size of 2MB</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="setting-name">Full Name</label>
+                    <input type="text" id="setting-name" class="form-control" value="Alex Vance" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="setting-email">Email Address</label>
+                    <input type="email" id="setting-email" class="form-control" value="admin@cloudscale.io" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="setting-role">Role / Position</label>
+                    <input type="text" id="setting-role" class="form-control" value="DevOps Lead" required>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">
+                    <i class="fas fa-save"></i> Save Profile Changes
+                  </button>
+                </form>
+              </div>
+
+              <!-- Tab 2: Cloud Configuration -->
+              <div class="settings-tab-pane" id="tab-cloud">
+                <div class="settings-pane-header">
+                  <h2 class="settings-pane-title">Cloud Configuration</h2>
+                  <p class="settings-pane-desc">Connect AWS, GCP, or Azure credentials for resource polling</p>
+                </div>
+
+                <form id="settings-cloud-form">
+                  <div class="form-group">
+                    <label class="form-label">Cloud Provider</label>
+                    <select class="form-control" id="setting-cloud-provider">
+                      <option value="AWS" selected>Amazon Web Services (AWS)</option>
+                      <option value="GCP">Google Cloud Platform (GCP)</option>
+                      <option value="AZURE">Microsoft Azure</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Default Region</label>
+                    <select class="form-control" id="setting-cloud-region">
+                      <option value="us-east-1" selected>US East (N. Virginia) us-east-1</option>
+                      <option value="us-west-2">US West (Oregon) us-west-2</option>
+                      <option value="eu-west-1">Europe (Ireland) eu-west-1</option>
+                      <option value="ap-south-1">Asia Pacific (Mumbai) ap-south-1</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">AWS Access Key ID</label>
+                    <input type="text" class="form-control" value="AKIAIOSFODNN7EXAMPLE" placeholder="AKIA...">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">AWS Secret Access Key</label>
+                    <input type="password" class="form-control" value="wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" placeholder="Secret Key">
+                  </div>
+
+                  <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+                    <button type="submit" class="btn btn-primary">
+                      <i class="fas fa-save"></i> Update Credentials
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btn-test-cloud-conn">
+                      <i class="fas fa-plug"></i> Test Connection
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Tab 3: Autoscaling Settings -->
+              <div class="settings-tab-pane" id="tab-autoscaling">
+                <div class="settings-pane-header">
+                  <h2 class="settings-pane-title">Autoscaling Settings</h2>
+                  <p class="settings-pane-desc">Set cluster boundaries, threshold targets, and cooldown buffers</p>
+                </div>
+
+                <form id="settings-policy-form">
+                  <div class="min-max-inputs">
+                    <div class="form-group">
+                      <label class="form-label">Cluster Minimum Servers</label>
+                      <input type="number" id="set-as-min" class="form-control" value="1" min="1" max="5">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Cluster Maximum Servers</label>
+                      <input type="number" id="set-as-max" class="form-control" value="5" min="1" max="10">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Scale-Up CPU Threshold (%)</label>
+                    <input type="number" id="set-as-cpu" class="form-control" value="80" min="50" max="95">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Memory Utilization Warning Level (%)</label>
+                    <input type="number" class="form-control" value="85" min="50" max="95">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Cooldown Period (Seconds)</label>
+                    <input type="number" class="form-control" value="300" min="60" max="1800">
+                    <span style="font-size: 0.72rem; color: var(--text-muted);">Prevents rapid oscillation during scaling cycles.</span>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">
+                    <i class="fas fa-save"></i> Save Policy Defaults
+                  </button>
+                </form>
+              </div>
+
+              <!-- Tab 4: Notifications -->
+              <div class="settings-tab-pane" id="tab-notifications">
+                <div class="settings-pane-header">
+                  <h2 class="settings-pane-title">Notification Settings</h2>
+                  <p class="settings-pane-desc">Choose which alerts trigger real-time emails and Slack webhooks</p>
+                </div>
+
+                <div class="notification-toggle-list">
+                  <div class="toggle-item">
+                    <div class="toggle-info">
+                      <span class="toggle-title">Email Alerts</span>
+                      <span class="toggle-desc">Receive critical notifications directly at admin@cloudscale.io</span>
+                    </div>
+                    <label class="switch">
+                      <input type="checkbox" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="toggle-item">
+                    <div class="toggle-info">
+                      <span class="toggle-title">High CPU Alerts</span>
+                      <span class="toggle-desc">Notify when average CPU crosses 80% for > 2 mins</span>
+                    </div>
+                    <label class="switch">
+                      <input type="checkbox" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="toggle-item">
+                    <div class="toggle-info">
+                      <span class="toggle-title">High Cost Alerts</span>
+                      <span class="toggle-desc">Notify when daily cloud spend exceeds budget by > 10%</span>
+                    </div>
+                    <label class="switch">
+                      <input type="checkbox" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="toggle-item">
+                    <div class="toggle-info">
+                      <span class="toggle-title">Autoscaling Alerts</span>
+                      <span class="toggle-desc">Receive notifications each time an instance is added or removed</span>
+                    </div>
+                    <label class="switch">
+                      <input type="checkbox" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="toggle-item">
+                    <div class="toggle-info">
+                      <span class="toggle-title">System Failure Alerts</span>
+                      <span class="toggle-desc">Urgent ping when an instance health check fails</span>
+                    </div>
+                    <label class="switch">
+                      <input type="checkbox" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 5: Appearance -->
+              <div class="settings-tab-pane" id="tab-appearance">
+                <div class="settings-pane-header">
+                  <h2 class="settings-pane-title">Appearance &amp; Theme</h2>
+                  <p class="settings-pane-desc">Customize your dashboard display preferences</p>
+                </div>
+
+                <div style="font-size: 0.88rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">Select Interface Theme:</div>
+                <div class="theme-options-grid">
+                  <div class="theme-card active" data-theme="dark">
+                    <div class="theme-preview-box theme-dark-preview"></div>
+                    <div style="font-weight: 600; font-size: 0.88rem; color: var(--text-primary);"><i class="fas fa-moon"></i> Dark Theme (Default)</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">High contrast DevOps UI</div>
+                  </div>
+
+                  <div class="theme-card" data-theme="light">
+                    <div class="theme-preview-box theme-light-preview"></div>
+                    <div style="font-weight: 600; font-size: 0.88rem; color: var(--text-primary);"><i class="fas fa-sun"></i> Light Theme</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">Daylight mode</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 6: Security -->
+              <div class="settings-tab-pane" id="tab-security">
+                <div class="settings-pane-header">
+                  <h2 class="settings-pane-title">Security &amp; Active Sessions</h2>
+                  <p class="settings-pane-desc">Manage authentication credentials and active devices</p>
+                </div>
+
+                <form id="settings-security-form" style="margin-bottom: 2rem;">
+                  <div class="form-group">
+                    <label class="form-label">Current Password</label>
+                    <input type="password" class="form-control" placeholder="••••••••••••" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">New Password</label>
+                    <input type="password" class="form-control" placeholder="Minimum 12 characters" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Confirm New Password</label>
+                    <input type="password" class="form-control" placeholder="Re-enter password" required>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">
+                    <i class="fas fa-key"></i> Update Password
+                  </button>
+                </form>
+
+                <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.75rem;">Active Sessions</h3>
+                <div class="session-item">
+                  <div class="session-device-info">
+                    <i class="fas fa-laptop session-device-icon"></i>
+                    <div>
+                      <div class="session-details">Windows 11 &bull; Chrome 128 (Current Session)</div>
+                      <div class="session-ip">192.168.1.104 &bull; Ashburn, VA, US</div>
+                    </div>
+                  </div>
+                  <span class="badge badge-success">Current</span>
+                </div>
+
+                <div class="session-item">
+                  <div class="session-device-info">
+                    <i class="fas fa-mobile-alt session-device-icon"></i>
+                    <div>
+                      <div class="session-details">iOS 17.5 &bull; Safari Mobile</div>
+                      <div class="session-ip">172.56.21.9 &bull; New York, NY, US</div>
+                    </div>
+                  </div>
+                  <button class="btn btn-danger btn-sm" onclick="alert('Session revoked.'); this.closest('.session-item').remove();">Revoke</button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </main>
+    </div>
+
+  </div>
+
+  <!-- Application Modules Entry Point -->
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>
