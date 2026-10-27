@@ -8,7 +8,7 @@ export const APP_CONFIG = {
   version: '2.4.0-prod',
 
   // Set to true for live browser simulation, false when connecting to local/remote backend
-  USE_MOCK_API: true,
+  USE_MOCK_API: false,
   API_BASE_URL: 'https://smart-cloud-dashboard.onrender.com/api',
 
   // API Endpoints Specification (Prepared for Python / psutil backend)
