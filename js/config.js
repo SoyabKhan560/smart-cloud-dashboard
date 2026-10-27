@@ -9,7 +9,7 @@ export const APP_CONFIG = {
 
   // Set to true for live browser simulation, false when connecting to local/remote backend
   USE_MOCK_API: true,
-  API_BASE_URL: 'http://localhost:5000/api',
+  API_BASE_URL: 'https://smart-cloud-dashboard.onrender.com/api',
 
   // API Endpoints Specification (Prepared for Python / psutil backend)
   endpoints: {
